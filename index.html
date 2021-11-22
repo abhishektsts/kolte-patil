@@ -528,9 +528,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="contact-inner-title">
-                        <h2>Send Message Us</h2>
-                        <p>Just send us your questions or concerns to
-                            starting a new project.</p>
+                        <h2>Message Us</h2>
+                        <p>Just send us your questions or concerns to us.</p>
                         <div class="question">
                             <img src="images/contact-author-thumb.jpg" alt="#">
                             <h4><span>HAVE A QUESTION?</span>
@@ -622,13 +621,13 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 col-md-12 col-12">
                     <div class="cta-content text-center">
-                        <h2 class="m-3">Install Appvilla and Start Using</h2>
+                        <h2 class="m-3">Get The More Details</h2>
                         <p class="m-3">There are many variations of passages of Lorem
                             Ipsum available, but the majority have
                             suffered alteration in some form, by injected humour, or randomised words which don't look
                             even slightly believable.</p>
                         <div class="button text-center">
-                            <a href="assets/VERVE Brochure.pdf" download class="btn"><i class="lni lni-download"></i> Get Brochure</a>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#formModal" class="btn"><i class="lni lni-download"></i> Get Brochure</button>
                         </div>
                     </div>
                 </div>
@@ -636,6 +635,66 @@
         </div>
     </section>
 
+    <!-- modal form -->
+    <!-- Modal -->
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fill Details And Get Brochure</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form method="POST" class="form-brochure needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid Name
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid Email
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contact</label>
+                            <input type="number" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Invalid Number
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" placeholder="Your message" style="height: 100px"></textarea>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-between">
+                            <div id="captchabrochure">
+                            </div>
+                            <button type="button" class="btn btn-sm btn-secondary mb-3" onclick="createBrochureCaptcha()">Refresh</button>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Enter captcha" id="brochureCaptchaTextBox" required autocomplete="off">
+                            <div class="invalid-feedback">
+                                Captcha require
+                            </div>
+                            <div class="d-none fw-bold text-danger" id="brochurecaptchaErr">
+                                Invaild captcha*
+                            </div>
+                        </div>
+                        <div class="form-group button">
+                            <button type="submit" name="submit" class="btn">Submit Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal form // -->
 
 
     <footer class="footer">
@@ -686,7 +745,6 @@
 
                             </div>
                             <div class="col-lg-3 col-md-6 col-12">
-
                                 <div class="single-footer f-link">
                                     <h3>Legal</h3>
 
@@ -714,7 +772,8 @@
     <script src="js/all.min.js"></script>
     <script src="js/captcha.js"></script>
     <script>
-        let forms = document.querySelectorAll('.form')
+        let forms = document.querySelectorAll('.form');
+        let formBrochure = document.querySelectorAll('.form-brochure');
         Array.prototype.slice.call(forms)
             .forEach(function(form) {
                 form.addEventListener('submit', function(event) {
@@ -725,74 +784,26 @@
                     form.classList.add('was-validated')
                 }, false)
             });
+        Array.prototype.slice.call(formBrochure)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity() || !validateBrochureCaptcha()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        alert('ds')
+                    } else {
+                        alert('done');
+                        let element = document.createElement("a");
+                        element.href = "assets/VERVE Brochure.pdf";
+                        element.download = "VERVE Brochure.pdf";
+                        element.click();
+                        document.documentElement.removeChild(element);
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            });
     </script>
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
-    <script type="text/javascript">
-        //======== tiny slider
-        tns({
-            container: '.client-logo-carousel',
-            autoplay: true,
-            autoplayButtonOutput: false,
-            mouseDrag: true,
-            gutter: 15,
-            nav: false,
-            controls: false,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                540: {
-                    items: 2,
-                },
-                768: {
-                    items: 3,
-                },
-                992: {
-                    items: 4,
-                }
-            }
-        });
-
-        //========= testimonial 
-        tns({
-            container: '.testimonial-slider',
-            items: 3,
-            slideBy: 'page',
-            autoplay: false,
-            mouseDrag: true,
-            gutter: 0,
-            nav: true,
-            controls: false,
-            controlsText: ['<i class="lni lni-arrow-left">', '<i class="lni lni-arrow-right">'],
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                540: {
-                    items: 1,
-                },
-                768: {
-                    items: 1,
-                },
-                992: {
-                    items: 1,
-                },
-                1170: {
-                    items: 1,
-                }
-            }
-        });
-
-        //====== counter up 
-        var cu = new counterUp({
-            start: 0,
-            duration: 2000,
-            intvalues: true,
-            interval: 100,
-            append: " ",
-        });
-        cu.start();
-    </script>
     <script defer src="js/beacon.min.js" data-cf-beacon='{"rayId":"6af0cecd9acc682e","version":"2021.11.0","r":1,"token":"e30b4e5ca0154d28b74c094697cafe5d","si":100}' crossorigin="anonymous"></script>
 </body>
 
